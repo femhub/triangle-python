@@ -96,7 +96,7 @@ RM = /bin/rm
 
 all: $(BIN)triangle $(BIN)showme
 
-trilibrary: $(BIN)triangle.o $(BIN)tricall
+trilibrary: $(BIN)triangle.o
 
 $(BIN)triangle: $(SRC)triangle.c
 	$(CC) $(CSWITCHES) -o $(BIN)triangle $(SRC)triangle.c -lm
@@ -108,6 +108,7 @@ $(BIN)tricall: $(BIN)tricall.c $(BIN)triangle.o
 $(BIN)triangle.o: $(SRC)triangle.c $(SRC)triangle.h
 	$(CC) $(CSWITCHES) $(TRILIBDEFS) -c -o $(BIN)triangle.o \
 		$(SRC)triangle.c
+	ar -rs libtriangle.a triangle.o
 
 $(BIN)showme: $(SRC)showme.c
 	$(CC) $(CSWITCHES) -o $(BIN)showme $(SRC)showme.c -lX11
