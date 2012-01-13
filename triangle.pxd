@@ -1,38 +1,32 @@
-from ctypes cimport complex as cComplex
-from libcpp.string cimport string 
-from libcpp cimport bool
-
 cdef extern from "triangle.h":
-  struct triangulateio {
-    REAL *pointlist;
-    REAL *pointattributelist;
-    int *pointmarkerlist;    
-    int numberofpoints;      
-    int numberofpointattributes;            
+  cdef struct triangulateio:
+    double *pointlist
+    double *pointattributelist
+    int *pointmarkerlist
+    int numberofpoints
+    int numberofpointattributes
 
-    int *trianglelist;                      
-    REAL *triangleattributelist;            
-    REAL *trianglearealist;                 
-    int *neighborlist;                      
-    int numberoftriangles;                  
-    int numberofcorners;                    
-    int numberoftriangleattributes;         
+    int *trianglelist
+    double *triangleattributelist
+    double *trianglearealist
+    int *neighborlist
+    int numberoftriangles
+    int numberofcorners
+    int numberoftriangleattributes
 
-    int *segmentlist;                       
-    int *segmentmarkerlist;                 
-    int numberofsegments;                   
+    int *segmentlist
+    int *segmentmarkerlist
+    int numberofsegments
 
-    REAL *holelist;                       
-    int numberofholes;                    
+    double *holelist
+    int numberofholes
 
-    REAL *regionlist;                     
-    int numberofregions;                  
+    double *regionlist
+    int numberofregions
 
-    int *edgelist;                        
-    int *edgemarkerlist;           
-    REAL *normlist;                
-    int numberofedges;             
-  }
-  cdef cppclass triangle:
-    triangulate(char *triswitches, struct triangulateio *in,
-                 struct triangulateio *out, struct triangulateio *vorout)
+    int *edgelist
+    int *edgemarkerlist
+    double *normlist
+    int numberofedges
+
+  cdef void triangulate(char *triswitches, triangulateio *in_, triangulateio *out_, triangulateio *vorout)
