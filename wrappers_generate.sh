@@ -1,2 +1,2 @@
 make trilibrary
-python setup.py build_ext --inplace --library-dirs="." install_lib
+python setup.py build_ext --library-dirs="." install_lib
