@@ -1,3 +1,4 @@
+INSTALL_DIR = /usr/local/lib
 # makefile for Triangle and Show Me
 #
 # Type "make" to compile Triangle and Show Me.
@@ -96,7 +97,7 @@ RM = /bin/rm
 
 all: $(BIN)triangle $(BIN)showme
 
-trilibrary: $(BIN)triangle.o
+trilibrary: $(BIN)triangle.o libtriangle.so
 
 $(BIN)triangle: $(SRC)triangle.c
 	$(CC) $(CSWITCHES) -o $(BIN)triangle $(SRC)triangle.c -lm
@@ -106,9 +107,14 @@ $(BIN)tricall: $(BIN)tricall.c $(BIN)triangle.o
 		$(BIN)triangle.o -lm
 
 $(BIN)triangle.o: $(SRC)triangle.c $(SRC)triangle.h
-	$(CC) $(CSWITCHES) $(TRILIBDEFS) -c -o $(BIN)triangle.o \
+	$(CC) -fPIC $(CSWITCHES) $(TRILIBDEFS) -c -o $(BIN)triangle.o \
 		$(SRC)triangle.c
-	ar -rs libtriangle.a triangle.o
+
+libtriangle.so: triangle.o 
+	$(CC) -shared triangle.o -o libtriangle.so
+
+install: libtriangle.so
+	cp libtriangle.so ${INSTALL_DIR}
 
 $(BIN)showme: $(SRC)showme.c
 	$(CC) $(CSWITCHES) -o $(BIN)showme $(SRC)showme.c -lX11
