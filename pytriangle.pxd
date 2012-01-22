@@ -30,3 +30,6 @@ cdef extern from "triangle.h":
     int numberofedges
 
   cdef void triangulate(char *triswitches, triangulateio *in_, triangulateio *out_, triangulateio *vorout)
+
+cdef class PyTriangulateIO:
+  cdef triangulateio * thisptr
